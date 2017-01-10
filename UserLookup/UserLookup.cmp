@@ -1,0 +1,32 @@
+<aura:component controller="UserController" implements="force:appHostable,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,force:hasRecordId" >
+    <aura:attribute name="src" type="String" default="/resource/RequireJS" description="RequireJS script path" />
+    
+    <aura:handler event="c:requireJSLoaded" action="{!c.initTypeahead}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <link rel="stylesheet" type="text/css" href="/resource/Lgt_InputLookup/css/typeahead.css"/>
+    <!-- ... -->
+    
+    <!-- public attributes -->
+    <aura:attribute name="type" type="String" required="true" default="User"/>    
+    <aura:attribute name="value" type="String" default=""/>
+    <aura:attribute name="className" type="String" />
+    <!-- PRIVATE ATTRS -->
+    <aura:attribute name="nameValue" type="String" access="PRIVATE"/>
+    <aura:attribute name="isLoading" type="Boolean" default="true" access="PRIVATE"/>
+    
+    <div class="has-feedback">
+        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">    
+            <input id="{!globalId+'_typeahead'}" type="text" 
+                   value="{!v.nameValue}" class="{!v.className}" 
+                   onchange="{!c.checkNullValue}" readonly="{!v.isLoading}" placeholder="Search a user"/> 
+            <span aura:id="svg_content">
+                <![CDATA[
+                      <svg aria-hidden="true"  class="slds-input__icon slds-icon-text-default">
+                        <use xlink:href="/resource/SLDS0122/assets/icons/utility-sprite/svg/symbols.svg#search"></use>
+                      </svg>
+                      ]]>
+            </span>
+        </div>
+    </div>
+</aura:component>
